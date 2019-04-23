@@ -724,6 +724,20 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="tap_popup_path_start_list">
+    <columns>
+      <!-- column-name item -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Root</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Project base directory</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkListStore" id="tab_pos_list">
     <columns>
       <!-- column-name item -->
@@ -2358,6 +2372,101 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">&lt;b&gt;Tab positions&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFrame" id="frame_tab_popup">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">none</property>
+                        <child type="label">
+                          <object class="GtkLabel" id="frame_popup_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Tab popup menu&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkAlignment" id="alignment_tab_popup">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="left_padding">12</property>
+                            <child>
+                              <object class="GtkVBox" id="vbox_tab_popup">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="border_width">5</property>
+                                <property name="spacing">10</property>
+                                <child>
+                                  <object class="GtkCheckButton" id="check_tab_popup_show_path">
+                                    <property name="label" translatable="yes">Show path in tab popup</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkTable" id="table_tab_popup">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="n_rows">1</property>
+                                    <property name="n_columns">2</property>
+                                    <property name="column_spacing">24</property>
+                                    <property name="row_spacing">3</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_32312">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Start path from:</property>
+                                        <property name="mnemonic_widget">tagbar_font</property>
+                                      </object>
+                                      <packing>
+                                        <property name="top_attach">0</property>
+                                        <property name="left_attach">0</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"/>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBox" id="combo_tab_popup_path_begin">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="model">tap_popup_path_start_list</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="cellrenderertext_45456"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="top_attach">0</property>
+                                        <property name="left_attach">1</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"/>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>

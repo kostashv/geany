@@ -2949,7 +2949,6 @@ void ui_menu_add_document_items_sorted(GtkMenu *menu, GeanyDocument *active,
 	GtkWidget *menu_item, *menu_item_label, *image;
 	GeanyDocument *doc;
 	guint i, len;
-	gchar *base_name;
 	GPtrArray *sorted_documents;
 
 	len = (guint) gtk_notebook_get_n_pages(GTK_NOTEBOOK(main_widgets.notebook));
@@ -2970,8 +2969,54 @@ void ui_menu_add_document_items_sorted(GtkMenu *menu, GeanyDocument *active,
 	{
 		doc = g_ptr_array_index(sorted_documents, i);
 
-		base_name = g_path_get_basename(DOC_FILENAME(doc));
-		menu_item = gtk_image_menu_item_new_with_label(base_name);
+        gchar *doc_label;
+
+        if(interface_prefs.tab_popup_show_path)
+        {
+            switch(interface_prefs.tab_popup_path_begin)
+            {
+                case TAB_POPUP_PATH_BEGIN_ROOT:
+                    doc_label = g_strdup(DOC_FILENAME(doc));
+                break;
+                case TAB_POPUP_PATH_BEGIN_PROJECT:
+                    if(app->project != NULL)
+                    {
+                        if(g_str_has_prefix(DOC_FILENAME(doc), app->project->base_path))
+                        {
+                            gchar** parts = g_strsplit(DOC_FILENAME(doc), app->project->base_path, 2);
+                            if(g_str_has_prefix(parts[1], G_DIR_SEPARATOR_S))
+                            {
+                                gchar** parts2 = g_strsplit(parts[1], G_DIR_SEPARATOR_S, 2);
+                                doc_label = g_strdup(parts2[1]);
+                                g_strfreev(parts2);
+                            }
+                            else
+                            {
+                                doc_label = g_strdup(parts[1]);
+                            }
+                            g_strfreev(parts);
+                        }
+                        else
+                        {
+                            doc_label = g_strdup(DOC_FILENAME(doc));
+                        }
+                    }
+                    else
+                    {
+                        doc_label = g_strdup(DOC_FILENAME(doc));
+                    }
+                break;
+                default:
+                    doc_label = g_strdup(DOC_FILENAME(doc));
+                break;
+            }
+        }
+        else
+        {
+            doc_label = g_path_get_basename(DOC_FILENAME(doc));
+        }
+
+		menu_item = gtk_image_menu_item_new_with_label(doc_label);
 		image = gtk_image_new_from_gicon(doc->file_type->icon, GTK_ICON_SIZE_MENU);
 		gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_item), image);
 		gtk_widget_set_tooltip_text(menu_item, DOC_FILENAME(doc));
@@ -2984,9 +3029,9 @@ void ui_menu_add_document_items_sorted(GtkMenu *menu, GeanyDocument *active,
 		gtk_widget_set_name(menu_item_label, document_get_status_widget_class(doc));
 
 		if (doc == active)
-			ui_label_set_markup(GTK_LABEL(menu_item_label), "<b>%s</b>", base_name);
+			ui_label_set_markup(GTK_LABEL(menu_item_label), "<b>%s</b>", doc_label);
 
-		g_free(base_name);
+        g_free(doc_label);
 	}
 	g_ptr_array_free(sorted_documents, TRUE);
 }
