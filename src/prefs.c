@@ -491,6 +491,12 @@ static void prefs_init_dialog(void)
 	on_show_notebook_tabs_toggled(GTK_TOGGLE_BUTTON(
 					ui_lookup_widget(ui_widgets.prefs_dialog, "check_show_notebook_tabs")), NULL);
 
+	widget = ui_lookup_widget(ui_widgets.prefs_dialog, "check_tab_popup_show_path");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), interface_prefs.tab_popup_show_path);
+
+	widget = ui_lookup_widget(ui_widgets.prefs_dialog, "combo_tab_popup_path_begin");
+	gtk_combo_box_set_active(GTK_COMBO_BOX(widget), interface_prefs.tab_popup_path_begin);
+
 	widget = ui_lookup_widget(ui_widgets.prefs_dialog, "check_show_tab_cross");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), file_prefs.show_tab_cross);
 
@@ -957,6 +963,12 @@ on_prefs_dialog_response(GtkDialog *dialog, gint response, gpointer user_data)
 
 		widget = ui_lookup_widget(ui_widgets.prefs_dialog, "check_show_notebook_tabs");
 		interface_prefs.show_notebook_tabs = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+
+		widget = ui_lookup_widget(ui_widgets.prefs_dialog, "check_tab_popup_show_path");
+		interface_prefs.tab_popup_show_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+
+		widget = ui_lookup_widget(ui_widgets.prefs_dialog, "combo_tab_popup_path_begin");
+		interface_prefs.tab_popup_path_begin = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
 
 		widget = ui_lookup_widget(ui_widgets.prefs_dialog, "check_show_tab_cross");
 		file_prefs.show_tab_cross = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));

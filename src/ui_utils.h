@@ -50,6 +50,8 @@ typedef struct GeanyInterfacePrefs
 	gchar			*tagbar_font;				/**< symbol sidebar font */
 	gchar			*msgwin_font;				/**< message window font */
 	gboolean		show_notebook_tabs;			/**< whether editor tabs are visible */
+    gboolean        tab_popup_show_path;        /**< whether to show path information in tab popup menu*/
+    gint            tab_popup_path_begin;       /**< directory from which to begin path (root, project)*/
 	gint			tab_pos_editor;				/**< positions of editor's tabs */
 	gint			tab_pos_msgwin;				/**< positions of message window's tabs */
 	gint			tab_pos_sidebar;			/**< positions of sidebar's tabs */
@@ -72,6 +74,12 @@ typedef struct GeanyInterfacePrefs
 }
 GeanyInterfacePrefs;
 
+
+enum
+{
+    TAB_POPUP_PATH_BEGIN_ROOT = 0,
+    TAB_POPUP_PATH_BEGIN_PROJECT,
+};
 
 /** Important widgets in the main window.
  * Accessed by @c geany->main_widgets. */
